@@ -97,7 +97,7 @@ end
 local function create_buf(config)
   local buf = nil
   if config.file then
-    buf = vim.fn.bufadd(config.file)
+    buf = vim.fn.bufadd(eval_opts(config.file))
     vim.fn.bufload(buf)
   else
     buf = vim.api.nvim_create_buf(false, true)
@@ -107,7 +107,7 @@ end
 
 local function create_win(config, buf) 
   local opts = get_win_opts(config)
-  local win = vim.api.nvim_open_win(buf, opts.focus, opts)
+  local win = vim.api.nvim_open_win(buf, true, opts)
   for opt, val in pairs(config.wo) do
     vim.api.nvim_win_set_option(win, opt, val)
   end
@@ -139,15 +139,16 @@ local function toggle(config, opts)
       end
     end
     -- create new window
+    local prev_win = vim.api.nvim_get_current_win()
     term.win = create_win(config, term.buf)
     if not config.file then
       -- ensure terminal command is executed before first show
       if not buf_ready then
-        local cmd, cwd = eval_opts(config.cmd), eval_opts(config.cwd)
-        if type(cmd) ~= "string" or type(cwd) ~= "string" then return end
-        vim.fn.termopen(config.cmd or vim.o.shell, { cwd = cwd })
+        vim.fn.termopen(eval_opts(config.cmd) or vim.o.shell, { cwd = eval_opts(config.cwd) })
       end
-      if config.start_in_insert then
+      if not eval_opts(config.focus) and valid_win(prev_win) then
+        vim.api.nvim_set_current_win(prev_win)
+      elseif eval_opts(config.start_in_insert) then
         vim.cmd.startinsert()
       end
     end
