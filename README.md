@@ -90,7 +90,7 @@ vim.keymap.set('t', '<C-t>', function() term.toggle() end)
 
 ### Lazygit float
 ```lua
-local lazygit = M.setup({
+local lazygit = require("floatty").setup({
   cmd = "lazygit",
   id = vim.fn.getcwd, -- Use the current working directory as the float's ID
 })
