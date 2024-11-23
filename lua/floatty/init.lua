@@ -16,6 +16,8 @@ local defaults = {
     v_align = "center", -- alignment helper if no row, "top", "center", "bottom"
     border = "rounded",
     zindex = 50,
+    title = nil,
+    title_pos = "center",
   },
   wo = {
     cursorcolumn = false,
