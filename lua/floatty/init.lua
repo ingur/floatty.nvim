@@ -16,7 +16,7 @@ local defaults = {
     v_align = "center", -- alignment helper if no row, "top", "center", "bottom"
     border = "rounded",
     zindex = 50,
-    title = nil,
+    title = "",
     title_pos = "center",
   },
   wo = {
@@ -41,7 +41,7 @@ local function eval_opts(opts)
   if type(opts) == "function" then return opts() end
   if type(opts) == "table" then
     local res = {}
-    for k, v in pairs(opts) do 
+    for k, v in pairs(opts) do
       res[k] = eval_opts(v)
     end
     return res
@@ -107,7 +107,7 @@ local function create_buf(config)
   return buf
 end
 
-local function create_win(config, buf) 
+local function create_win(config, buf)
   local opts = get_win_opts(config)
   local win = vim.api.nvim_open_win(buf, true, opts)
   for opt, val in pairs(config.wo) do
@@ -119,8 +119,8 @@ end
 local function toggle(config, opts)
   opts = opts or {}
   local id = opts.id or eval_opts(config.id)
-  if type(id) ~= "string" and type(id) ~= "number" then return end  
-  
+  if type(id) ~= "string" and type(id) ~= "number" then return end
+
   -- 0 is a special id to toggle previous float
   if id == 0 then id = config.prev_id or 1 end
   local term = config.terms[id] or {}
