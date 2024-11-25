@@ -125,6 +125,10 @@ local function toggle(config, opts)
   if id == 0 then id = config.prev_id or 1 end
   local term = config.terms[id] or {}
 
+  -- cmd and cwd need to be evaluated before window is created
+  local cmd = eval_opts(config.cmd) or vim.o.shell
+  local cwd = eval_opts(config.cwd) or vim.fn.getcwd()
+
   local buf_ready = valid_buf(term.buf)
   if not buf_ready then
     term.buf = create_buf(config)
@@ -146,7 +150,7 @@ local function toggle(config, opts)
     if not config.file then
       -- ensure terminal command is executed before first show
       if not buf_ready then
-        vim.fn.termopen(eval_opts(config.cmd) or vim.o.shell, { cwd = eval_opts(config.cwd) })
+        vim.fn.termopen(cmd, { cwd = cwd })
       end
       if not eval_opts(config.focus) and valid_win(prev_win) then
         vim.api.nvim_set_current_win(prev_win)
