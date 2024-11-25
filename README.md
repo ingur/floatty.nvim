@@ -50,6 +50,8 @@ local defaults = {
     height = 0.8,            -- Supports percentages (<=1) and absolute sizes (>1)
     border = "rounded",      -- Border style
     zindex = 50,             -- Z-index of the float
+    title = "",              -- window title
+    title_pos = "center",    -- "left", "center", "right"
     -- see :h nvim_open_win() for more config options
   },
   wo = {                     -- Window-local options
