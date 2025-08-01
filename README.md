@@ -5,7 +5,7 @@
 ![floatty](https://github.com/user-attachments/assets/6ad778a1-d9ad-40ec-877d-e563d2c5559d)
 
 ![Neovim](https://badgen.net/badge/Neovim/0.11%2B/green)
-![Version](https://badgen.net/github/release/ingur/floatty.nvim)
+![Version](https://badgen.net/github/release/ingur/floatty.nvim?cache=3600)
 ![Lua](https://badgen.net/badge/language/Lua/blue)
 ![License](https://badgen.net/static/license/MIT/blue)
 
@@ -14,15 +14,15 @@
   Inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a> but focused on simplicity.
 </p>
 
-## Requirements
-- Neovim 0.11+
-
 ## Features
 - Easily toggle floating terminals and custom windows using `.toggle(opts)`.
 - Customize window size, position, and appearance.
 - Support for custom terminal commands (e.g [lazygit](#lazygit-float)), working directories, and window options.
 - Dynamic alignment helpers (`h_align`, `v_align`).
 - Error handling for invalid terminal commands.
+
+## Requirements
+- Neovim 0.11+
 
 ## Installation
 
@@ -31,7 +31,7 @@ Install with your favorite package manager. For example, in lazy.nvim:
 { "ingur/floatty.nvim" }
 ```
 
-## Example config
+## Quickstart
 ```lua
 
 -- initialize config
@@ -42,6 +42,9 @@ vim.keymap.set('n', '<C-t>', function() term.toggle() end)
 vim.keymap.set('t', '<C-t>', function() term.toggle() end)
 ```
 
+> [!TIP]
+> See more config examples [below](#config-examples)
+ 
 ## Defaults
 ```lua
 -- NOTE: all options can be functions to be evaluated
