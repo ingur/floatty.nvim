@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-  A tiny plugin for toggling floating terminals and windows, inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a>.
+  A tiny (< 200 LOC) floating terminal plugin with smart positioning, count-based multiplexing, and runtime layout switching. Inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a> but focused on simplicity.
 </p>
 
 ## Requirements
