@@ -10,7 +10,7 @@
 ![License](https://badgen.net/static/license/MIT/blue)
 
 <p align="center">
-  A tiny (< 200 LOC) floating terminal plugin with smart positioning, count-based multiplexing, and runtime layout switching.
+  A tiny (<200 LOC) floating terminal plugin with smart positioning, count-based multiplexing, and runtime layout switching.
   Inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a> but focused on simplicity.
 </p>
 
