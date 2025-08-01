@@ -1,5 +1,4 @@
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b2d46f4a-bd8e-4f11-ae19-a99981f1a816"/>
   <h1 align="center">floatty.nvim</h1>
 </p>
 
