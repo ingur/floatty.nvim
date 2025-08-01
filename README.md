@@ -7,7 +7,7 @@
 
 <p align="center">
   A tiny (< 200 LOC) floating terminal plugin with smart positioning, count-based multiplexing, and runtime layout switching.
-  <br> Inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a> but focused on simplicity.
+  Inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a> but focused on simplicity.
 </p>
 
 ## Requirements
