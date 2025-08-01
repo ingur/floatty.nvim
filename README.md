@@ -5,7 +5,6 @@
 ![floatty](https://github.com/user-attachments/assets/6ad778a1-d9ad-40ec-877d-e563d2c5559d)
 
 ![Neovim](https://badgen.net/badge/Neovim/0.11%2B/green)
-![Version](https://badgen.net/github/release/ingur/floatty.nvim)
 ![Lua](https://badgen.net/badge/language/Lua/blue)
 ![License](https://badgen.net/static/license/MIT/blue)
 
