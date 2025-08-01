@@ -3,8 +3,11 @@
   <h1 align="center">floatty.nvim</h1>
 </p>
 
+![floatty](https://github.com/user-attachments/assets/6ad778a1-d9ad-40ec-877d-e563d2c5559d)
+
 <p align="center">
-  A tiny (< 200 LOC) floating terminal plugin with smart positioning, count-based multiplexing, and runtime layout switching. Inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a> but focused on simplicity.
+  A tiny (< 200 LOC) floating terminal plugin with smart positioning, count-based multiplexing, and runtime layout switching.
+  <br> Inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a> but focused on simplicity.
 </p>
 
 ## Requirements
