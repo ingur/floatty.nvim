@@ -13,7 +13,7 @@
 ## Features
 - Easily toggle floating terminals and custom windows using `.toggle(opts)`.
 - Customize window size, position, and appearance.
-- Support for different terminal commands, working directories, and window options.
+- Support for custom terminal commands (e.g [lazygit](#lazygit-float), working directories, and window options.
 - Dynamic alignment helpers (`h_align`, `v_align`).
 - Error handling for invalid terminal commands.
 
@@ -78,7 +78,7 @@ local defaults = {
 }
 ```
 
-## More config examples
+## Config examples
 
 ### Bottom-aligned Terminal
 ```lua
