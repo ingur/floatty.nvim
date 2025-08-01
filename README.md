@@ -7,11 +7,15 @@
   A tiny plugin for toggling floating terminals and windows, inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a>.
 </p>
 
+## Requirements
+- Neovim 0.11+
+
 ## Features
 - Easily toggle floating terminals and custom windows using `.toggle(opts)`.
 - Customize window size, position, and appearance.
 - Support for different terminal commands, working directories, and window options.
 - Dynamic alignment helpers (`h_align`, `v_align`).
+- Error handling for invalid terminal commands.
 
 ## Installation
 
@@ -35,42 +39,42 @@ vim.keymap.set('t', '<C-t>', function() term.toggle() end)
 ```lua
 -- NOTE: all options can be functions to be evaluated
 local defaults = {
-  file = nil,                -- File to open (if any)
-  cmd = vim.o.shell,         -- Terminal command to run
-  cwd = vim.fn.getcwd,       -- Working directory of the command
-  id = function() return vim.v.count end, -- Identifier for the float
-  start_in_insert = true,    -- Start in insert mode
-  focus = true,              -- Focus the window after opening
-  window = {
-    h_align = "center",      -- "left", "center", "right"
-    v_align = "center",      -- "top", "center", "bottom"
-    row = nil,               -- Supports percentages (<=1) and absolute sizes (>1)
-    col = nil,               -- Supports percentages (<=1) and absolute sizes (>1)
-    width = 0.8,             -- Supports percentages (<=1) and absolute sizes (>1)
-    height = 0.8,            -- Supports percentages (<=1) and absolute sizes (>1)
-    border = "rounded",      -- Border style
-    zindex = 50,             -- Z-index of the float
-    title = "",              -- window title
-    title_pos = "center",    -- "left", "center", "right"
-    -- see :h nvim_open_win() for more config options
-  },
-  wo = {                     -- Window-local options
-    cursorcolumn = false,
-    cursorline = false,
-    cursorlineopt = "both",
-    fillchars = "eob: ,lastline:…",
-    list = false,
-    listchars = "extends:…,tab:  ",
-    number = false,
-    relativenumber = false,
-    signcolumn = "no",
-    spell = false,
-    winbar = "",
-    statuscolumn = "",
-    wrap = false,
-    sidescrolloff = 0,
-    -- other window options are also supported
-  },
+    file = nil,                -- File to open (if any)
+    cmd = vim.o.shell,         -- Terminal command to run
+    cwd = vim.fn.getcwd,       -- Working directory of the command
+    id = function() return vim.v.count end, -- Identifier for the float
+    start_in_insert = true,    -- Start in insert mode
+    focus = true,              -- Focus the window after opening
+    window = {
+        row = nil,               -- Supports percentages (<=1) and absolute sizes (>1)
+        col = nil,               -- Supports percentages (<=1) and absolute sizes (>1)
+        width = 0.8,             -- Supports percentages (<=1) and absolute sizes (>1)
+        height = 0.8,            -- Supports percentages (<=1) and absolute sizes (>1)
+        h_align = "center",      -- "left", "center", "right" (used when col is nil)
+        v_align = "center",      -- "top", "center", "bottom" (used when row is nil)
+        border = "rounded",      -- Border style
+        zindex = 50,             -- Z-index of the float
+        title = "",              -- window title
+        title_pos = "center",    -- "left", "center", "right"
+        -- see :h nvim_open_win() for more config options
+    },
+    wo = {                     -- Window-local options
+        cursorcolumn = false,
+        cursorline = false,
+        cursorlineopt = "both",
+        fillchars = "eob: ,lastline:…",
+        list = false,
+        listchars = "extends:…,tab:  ",
+        number = false,
+        relativenumber = false,
+        signcolumn = "no",
+        spell = false,
+        winbar = "",
+        statuscolumn = "",
+        wrap = false,
+        sidescrolloff = 0,
+        -- other window options are also supported
+    },
 }
 ```
 
@@ -79,11 +83,11 @@ local defaults = {
 ### Bottom-aligned Terminal
 ```lua
 local term = require("floatty").setup({
-  window = {
-    row = function() return vim.o.lines - 11 end,
-    width = 1.0,
-    height = 8,
-  },
+    window = {
+        row = function() return vim.o.lines - 11 end,
+        width = 1.0,
+        height = 8,
+    },
 })
 
 vim.keymap.set('n', '<C-t>', function() term.toggle() end)
@@ -93,8 +97,8 @@ vim.keymap.set('t', '<C-t>', function() term.toggle() end)
 ### Lazygit float
 ```lua
 local lazygit = require("floatty").setup({
-  cmd = "lazygit",
-  id = vim.fn.getcwd, -- Use the current working directory as the float's ID
+    cmd = "lazygit",
+    id = vim.fn.getcwd, -- Use the current working directory as the float's ID
 })
 
 vim.keymap.set('n', '<C-g>', function() lazygit.toggle() end)
@@ -107,23 +111,23 @@ local term = require("floatty").setup()
 local layout = "horizontal"
 
 term.toggle_layout = function()
-  layout = layout == "horizontal" and "vertical" or "horizontal"
-  if layout == "horizontal" then
-    term.window = {
-      row = function() return vim.o.lines - 11 end,
-      width = 1.0,
-      height = 8,
-      h_align = "center",
-    }
-  else
-    term.window = {
-      row = nil,
-      height = function() return vim.o.lines - 3 end,
-      width = 0.25,
-      h_align = "right",
-      v_align = "top",
-    }
-  end
+    layout = layout == "horizontal" and "vertical" or "horizontal"
+    if layout == "horizontal" then
+        term.window = {
+            row = function() return vim.o.lines - 11 end,
+            width = 1.0,
+            height = 8,
+            h_align = "center",
+        }
+    else
+        term.window = {
+            row = nil,
+            height = function() return vim.o.lines - 3 end,
+            width = 0.25,
+            h_align = "right",
+            v_align = "top",
+        }
+    end
 end
 
 vim.keymap.set('n', '<leader>tt', term.toggle_layout)
