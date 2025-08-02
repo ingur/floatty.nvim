@@ -10,16 +10,14 @@
 ![License](https://badgen.net/static/license/MIT/blue)
 
 <p align="center">
-  A tiny (<200 LOC) floating terminal plugin with smart positioning, count-based multiplexing, and runtime layout switching.
+  A tiny (<200 LOC) but highly customizable floating terminal plugin.
   Inspired by <a href="https://github.com/akinsho/toggleterm.nvim">toggleterm.nvim</a> but focused on simplicity.
 </p>
 
 ## Features
 - Easily toggle floating terminals and custom windows using `.toggle(opts)`.
-- Customize window size, position, and appearance.
+- Customize window size, positioning, and appearance.
 - Support for custom terminal commands (e.g [lazygit](#lazygit-float)), working directories, and window options.
-- Dynamic alignment helpers (`h_align`, `v_align`).
-- Error handling for invalid terminal commands.
 
 ## Requirements
 - Neovim 0.11+
