@@ -7,6 +7,8 @@ local defaults = {
     id = function() return vim.v.count end, -- float identifier
     start_in_insert = true,
     focus = true,
+    on_open = nil, -- callback(buf, win) when float opens
+    on_exit = nil, -- callback(buf) when float closes
     window = {
         row = nil, -- supports percentages (<=1) and absolute sizes (>1)
         col = nil, -- supports percentages (<=1) and absolute sizes (>1)
@@ -136,6 +138,9 @@ local function toggle(config, opts)
 
     if valid_win(term.win) then
         vim.api.nvim_win_close(term.win, true)
+        if config.on_exit then
+            config.on_exit(term.buf)
+        end
     else
         -- ensure unwanted float window is closed
         if id ~= config.prev_id then
@@ -147,6 +152,9 @@ local function toggle(config, opts)
         -- create new window
         local prev_win = vim.api.nvim_get_current_win()
         term.win = create_win(config, term.buf)
+        if config.on_open then
+            config.on_open(term.buf, term.win)
+        end
         if not config.file then
             -- ensure terminal command is executed before first show
             if not buf_ready then
