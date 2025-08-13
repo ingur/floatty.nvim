@@ -7,8 +7,8 @@ local defaults = {
     id = function() return vim.v.count end, -- float identifier
     start_in_insert = true,
     focus = true,
-    on_open = nil, -- callback(buf, win) when float opens
-    on_exit = nil, -- callback(buf) when float closes
+    on_open = nil, -- callback(term, buf) when buffer is created
+    on_exit = nil, -- callback(term, buf) when buffer is destroyed
     window = {
         row = nil, -- supports percentages (<=1) and absolute sizes (>1)
         col = nil, -- supports percentages (<=1) and absolute sizes (>1)
@@ -134,13 +134,22 @@ local function toggle(config, opts)
     local buf_ready = valid_buf(term.buf)
     if not buf_ready then
         term.buf = create_buf(config)
+        if config.on_open then
+            config.on_open(config, term.buf)
+        end
+        if config.on_exit then
+            vim.api.nvim_create_autocmd("BufDelete", {
+                buffer = term.buf,
+                once = true,
+                callback = function()
+                    config.on_exit(config, term.buf)
+                end,
+            })
+        end
     end
 
     if valid_win(term.win) then
         vim.api.nvim_win_close(term.win, true)
-        if config.on_exit then
-            config.on_exit(term.buf)
-        end
     else
         -- ensure unwanted float window is closed
         if id ~= config.prev_id then
@@ -152,9 +161,6 @@ local function toggle(config, opts)
         -- create new window
         local prev_win = vim.api.nvim_get_current_win()
         term.win = create_win(config, term.buf)
-        if config.on_open then
-            config.on_open(term.buf, term.win)
-        end
         if not config.file then
             -- ensure terminal command is executed before first show
             if not buf_ready then
