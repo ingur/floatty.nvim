@@ -53,6 +53,8 @@ local defaults = {
     id = function() return vim.v.count end, -- Identifier for the float
     start_in_insert = true,    -- Start in insert mode
     focus = true,              -- Focus the window after opening
+    on_open = nil,             -- Callback(config, buf) when buffer is created
+    on_exit = nil,             -- Callback(config, buf) when buffer is destroyed
     window = {
         row = nil,               -- Supports percentages (<=1) and absolute sizes (>1)
         col = nil,               -- Supports percentages (<=1) and absolute sizes (>1)
