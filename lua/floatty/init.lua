@@ -138,7 +138,7 @@ local function toggle(config, opts)
             config.on_open(config, term.buf)
         end
         if config.on_exit then
-            vim.api.nvim_create_autocmd("BufDelete", {
+            vim.api.nvim_create_autocmd("BufWipeout", {
                 buffer = term.buf,
                 once = true,
                 callback = function()
